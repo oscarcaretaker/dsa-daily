@@ -4,7 +4,7 @@ using namespace std;
 int fact(int x);
 
 int main(){
-	cout << fact(5);
+	cout << fact(5) << endl;
 	return 0;
 }
 int fact(int x){
