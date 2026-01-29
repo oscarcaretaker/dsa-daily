@@ -1,33 +1,30 @@
-// selection sort 
-// select the minimums ans swap
-// a program to go in faang
-    #include <iostream>
-    using namespace std;
-    int main() {
-	// arr declaration
-        int size = 20;
-	int arr[size] = {21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,1};
+#include<iostream>
+using namespace std;
 
-	// selection sort
-        for (int j = 0; j < size; j++){
-        int var= arr[j];
-	int var_i = 0;
-        int temp = 0;
+int main(){
+	int temp, n =7;
+	int arr[n] = {10,90,92,22,82,1,2};
 
-	for (int i = j; i<size ; i++){
-		if(arr[i]<=var){
-		   var = arr[i];
-		   var_i = i;
+	// before 
+	for(int i = 0; i < n ; i++){
+		cout << arr[i] << " ";
+	}
+	cout << endl;
+	//SELECTION SORT
+	for(int i = 0; i<n; i++){
+		for(int j = i+1; j < n; j++){
+			if(arr[j]<arr[i]){
+				temp = arr[i];
+				arr[i] = arr[j];
+				arr[j] = temp;
+			}
 		}
 	}
-        temp = arr[j];
-	arr[j] = var;
-        arr[var_i] = temp;
-        }
-        
-	// print the values
-	for(int k = 0 ; k < size; k++){
-          cout << arr[k] << "," ;
+	// printing of array
+	for(int i = 0; i<n; i++){
+		cout << arr[i] << " ";
 	}
-        return 0;
-    }
+	cout << endl;
+
+	return 0;
+}

@@ -1,22 +1,39 @@
-//  BUBBLE SORT
-//  TAKE THE BIGGEST PUT IN last
-#include <iostream>
+#include<iostream>
 using namespace std;
 
 int main(){
-        int size = 20;
-	int arr[size] = {20,10,23,2,2,3,4,2,4,5,2,2,3,4,5,3,2,5,4,5};
-	int chk = 0;
-	for(int j = (size-1); j>=0; j--){
-            for(int i = 0; i <= j - 1; i++){
-                 if(arr[i]>arr[i+1]){
-                   swap(arr[i],arr[i+1]);
-		 }
-	    }
+	
+	// array declaration
+	int n = 5;
+	int arr[n] = {60,30,10,20,90};
+	int temp; // swapping var
+	int max_idx; // stores the index holding the max value in current iteration 
+
+	// before
+	for(int i = 0; i<n; i++){
+		cout << arr[i] << " ";
 	}
-        int n;
-	for(n = 0; n<size; n++){
-          cout << arr[n] << ",";
+	cout << endl;
+
+	// BUBBLE sort
+	for(int i = n-1; i>=0; i--){
+		max_idx = i;
+		for(int j = 0; j<i ;j++){
+			if(arr[i]<arr[j]){
+					max_idx = j;
+			}
+		}
+		temp = arr[max_idx];
+		arr[max_idx] = arr[i];
+		arr[i] = temp;
+
+
+	}	
+
+	// Printing
+	for(int i = 0; i<n; i++){
+		cout << arr[i] << " ";
 	}
- return 0;
+	cout << endl;
+	return 0;
 }
