@@ -4,7 +4,7 @@ using namespace std;
 // Merge Sort Algo Implementation
 // Author : Aman
 int main(){
-
+ merge(sort)
 
 
 
