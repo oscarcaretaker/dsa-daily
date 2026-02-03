@@ -1,6 +1,6 @@
 #include<iostream>
 using namespace std;
-
+// basic implementqiton of classes
 class Rectangle{
 	private :
 		int len, br;
