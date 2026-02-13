@@ -16,22 +16,22 @@ int main(){
 		cout << arr[i] << " ";
 	}
 	cout << endl;
-	cout << count_non_zero;
 	//logic
 	int s = 0;
 	for(int i=0; i<n; i++){
 		if(arr[i] != 0){
 			int temp = arr[s];
 			arr[s] = arr[i];
-			arr[s] = temp;
+			arr[i] = temp;
 			count_non_zero-=1;
 			s+=1;
 		}
+		else{
 		if(count_non_zero == 0){
 			arr[i] = 0;
 		}
+		}
 	}
-
 	//AFTER
 	for(int i = 0; i<n; i++){
 		cout << arr[i] << " ";
