@@ -6,13 +6,13 @@ int main(){
 		
 	int n = 8;
 	int arr[n] = {1,0,2,3,0,4,0,1};
-	int count_non_zero = 0;
+	//int count_non_zero = 0;
 
 	//Before
 	for(int i = 0; i < n; i++){
-		if(arr[i] != 0){
-			count_non_zero+=1;
-		}
+	//	if(arr[i] != 0){
+	//		count_non_zero+=1;
+	//	}
 		cout << arr[i] << " ";
 	}
 	cout << endl;
@@ -23,14 +23,14 @@ int main(){
 			int temp = arr[s];
 			arr[s] = arr[i];
 			arr[i] = temp;
-			count_non_zero-=1;
+		//	count_non_zero-=1;
 			s+=1;
 		}
-		else{
-		if(count_non_zero == 0){
-			arr[i] = 0;
-		}
-		}
+		//else{
+		//if(count_non_zero == 0){
+		//	arr[i] = 0;
+		//}
+		//}
 	}
 	//AFTER
 	for(int i = 0; i<n; i++){
