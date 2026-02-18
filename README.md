@@ -15,4 +15,5 @@ I am consistently solving problems and **pushing my progress to this repository 
 - Solutions may be optimized or updated over time
 
 ---
-
+## Structure
+- Array
