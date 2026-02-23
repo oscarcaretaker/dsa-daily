@@ -2,7 +2,7 @@
 using namespace std;
 
 int main() {
-  int nums[] = {2, 3, 5, -2, 7, -4};
+  int nums[] = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
   int s = sizeof(nums) / sizeof(nums[0]);
 
   int current = 0;
