@@ -70,6 +70,7 @@ public:
         head = head->next;
         delete temp;
       }
+      cout << "Node deleted at Head" << endl;
     }
   }
 
@@ -90,6 +91,7 @@ public:
         tail = temp;
         temp->next = nullptr;
       }
+      cout << "Node deleted at tail." << endl;
     }
   }
 
@@ -146,23 +148,55 @@ public:
       temp = temp->next;
       count++;
     }
-    cout << "Lenght : " << count << endl;
+    //  cout << "Lenght : " << count << endl;
     return count;
+  }
+
+  void deleteatPos(int x) {
+    if (len() < x) {
+      cout << "Enter valid position number for deletion." << endl;
+    } else {
+      if (x == 1) {
+        deleteatHead();
+      } else {
+        if (x == len()) {
+          deleteatTail();
+        } else {
+          Node *temp = head;
+          Node *prev = head;
+          for (int i = 1; i < x; i++) {
+            prev = temp;
+            temp = temp->next;
+          }
+          prev->next = temp->next;
+          cout << "Deleted value : " << temp->data << " | Position : " << x
+               << endl;
+          delete temp;
+        }
+      }
+    }
   }
 };
 
 int main() {
   List num;
-  num.insertatHead(10);
-  num.insertatTail(20);
-  num.insertatTail(30);
-  num.len();
-  num.deleteatTail();
-  num.len();
-  num.deleteatTail();
-  num.deleteatHead();
-  num.len();
+  num.insertatTail(1);
+  num.insertatTail(2);
+  num.insertatTail(3);
+  num.insertatTail(4);
+  num.insertatTail(5);
+  num.insertatTail(6);
+  num.insertatTail(7);
+  num.insertatTail(8);
+  num.insertatTail(9);
+  num.insertatTail(10);
+  num.insertatTail(11);
+  num.insertatTail(12);
   num.display();
-
+  num.deleteatPos(5);
+  num.display();
+  num.deleteatPos(12);
+  num.deleteatPos(11);
+  num.display();
   return 0;
 }
