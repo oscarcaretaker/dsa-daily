@@ -45,9 +45,10 @@ public:
 
   void display() {
     if (head == nullptr) {
-      cout << "empty" << endl;
+      cout << "Display Function : EMPTY LIST" << endl;
     } else {
       Node *temp = head;
+      cout << "LIST : ";
       while (temp != nullptr) {
         cout << temp->data << " --> ";
         temp = temp->next;
@@ -58,26 +59,95 @@ public:
 
   void deleteatHead() {
     if (head == nullptr) {
-      cout << "List is empty" << endl;
+      cout << "List is empty cannot delete form Head." << endl;
     } else {
-      Node *temp = head;
-      head = head->next;
-      delete temp;
+      if (head->next == nullptr) {
+        delete head;
+        head = nullptr;
+        tail = nullptr;
+      } else {
+        Node *temp = head;
+        head = head->next;
+        delete temp;
+      }
     }
   }
 
   void deleteatTail() {
     if (head == nullptr) {
-      cout << "List is empty" << endl;
+      cout << "List is empty cannot delete from Tail." << endl;
     } else {
-      Node *temp = head;
-      while (temp->next->next != nullptr) {
-        temp = temp->next;
+      if (head->next == nullptr) {
+        delete head;
+        head = nullptr;
+        tail = nullptr;
+      } else {
+        Node *temp = head;
+        while (temp->next->next != nullptr) {
+          temp = temp->next;
+        }
+        delete temp->next;
+        tail = temp;
+        temp->next = nullptr;
       }
-      delete temp->next;
-      tail = temp;
-      temp->next = nullptr;
     }
+  }
+
+  void get_next() { cout << head->next << endl; }
+
+  void deletebyValue(int x) {
+    if (head == nullptr) {
+      cout << "List is empty cannot delete form value" << endl;
+    } else {
+      if (head->next == nullptr) {
+        if (head->data == x) {
+          delete head;
+          head = nullptr;
+          tail = nullptr;
+          cout << "Deleted " << x << endl;
+        } else {
+          cout << "Element " << x << " not present in the list" << endl;
+        }
+      } else {
+        Node *temp = head;
+        Node *prev = head;
+        while (temp != nullptr) {
+          if (temp->data == x) {
+            prev->next = temp->next;
+            delete temp;
+            cout << "Deleted " << x << endl;
+            return;
+          }
+          prev = temp;
+          temp = temp->next;
+        }
+        cout << "Element Not present in list." << endl;
+      }
+    }
+  }
+
+  bool search(int x) {
+    Node *temp = head;
+    while (temp != nullptr) {
+      if (temp->data == x) {
+        cout << "SEARCH : " << x << " is present in list." << endl;
+        return true;
+      }
+      temp = temp->next;
+    }
+    cout << "SEARCH : " << x << " is not present in list.";
+    return false;
+  }
+
+  int len() {
+    int count = 0;
+    Node *temp = head;
+    while (temp != nullptr) {
+      temp = temp->next;
+      count++;
+    }
+    cout << "Lenght : " << count << endl;
+    return count;
   }
 };
 
@@ -86,9 +156,12 @@ int main() {
   num.insertatHead(10);
   num.insertatTail(20);
   num.insertatTail(30);
+  num.len();
+  num.deleteatTail();
+  num.len();
+  num.deleteatTail();
   num.deleteatHead();
-  num.deleteatTail();
-  num.deleteatTail();
+  num.len();
   num.display();
 
   return 0;
