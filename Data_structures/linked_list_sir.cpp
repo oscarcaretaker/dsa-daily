@@ -1,4 +1,3 @@
-#define LIST_H
 #include <iostream>
 using namespace std;
 
@@ -15,11 +14,13 @@ private:
   };
   Node *head;
   Node *tail;
+  string name;
 
 public:
-  List() {
+  List(string n) {
     head = nullptr;
     tail = nullptr;
+    name = n;
   }
 
   void insertatHead(int x) {
@@ -201,7 +202,7 @@ public:
   }
 
   List cp() {
-    List xerox;
+    List xerox("xerox");
     Node *temp = head;
     while (temp != nullptr) {
       xerox.insertatTail(temp->data);
@@ -211,7 +212,7 @@ public:
   }
 
   List rev() {
-    List rev_list;
+    List rev_list("rev_list");
     for (int i = len(); i >= 1; i--) {
       rev_list.insertatTail(valueatPos(i));
     }
@@ -240,33 +241,38 @@ public:
   }
 
   List mergee(List x) {
-    List sum;
+    List sum("sum");
     sum = cp();
     sum.tail->next = x.cp().head;
     return sum;
   }
 
-  /* ~List() {
-     Node *temp = head;
-     while (temp != nullptr) {
-       Node *nextNode = temp->next;
-       delete temp;
-       temp = nextNode;
-     }
-   } */
+  ~List() {
+    cout << "begin destroying " << this->name << endl;
+    Node *temp = head;
+    while (temp != nullptr) {
+      Node *nextNode = temp->next;
+      delete temp;
+      temp = nextNode;
+    }
+    cout << "end destroying " << this->name << endl;
+  }
 };
 
 int main() {
-  List num;
+  List num("num");
   num.insertatTail(10);
   num.insertatTail(20);
   num.insertatTail(30);
   num.insertatTail(40);
   num.insertatTail(50);
   num.display();
-  List x = num.rev();
+  List x("x");
+  x = num.rev();
+  cout << "printing x" << endl;
   x.display();
-  List sum = num.mergee(x);
+  List sum("sum");
+  sum = num.mergee(x);
   sum.display();
   return 0;
 }

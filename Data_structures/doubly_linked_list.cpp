@@ -1,4 +1,3 @@
-#define LIST_H
 #include <iostream>
 using namespace std;
 
@@ -8,9 +7,10 @@ private:
   public:
     int data;
     Node *next;
+    Node *prev;
     Node(int x) {
       data = x;
-      next = nullptr;
+      next = prev = nullptr;
     }
   };
   Node *head;
@@ -28,6 +28,7 @@ public:
       head = newnode;
       tail = newnode;
     } else {
+      head->prev = newnode;
       newnode->next = head;
       head = newnode;
     }
@@ -39,12 +40,13 @@ public:
       head = newnode;
       tail = newnode;
     } else {
+      newnode->prev = tail;
       tail->next = newnode;
       tail = newnode;
     }
   }
 
-  void display() {
+  void displayFromHead() {
     if (head == nullptr) {
       cout << "Display Function : EMPTY LIST" << endl;
     } else {
@@ -53,6 +55,20 @@ public:
       while (temp != nullptr) {
         cout << temp->data << " --> ";
         temp = temp->next;
+      }
+      cout << "Null" << endl;
+    }
+  }
+
+  void displayFromTail() {
+    if (head == nullptr) {
+      cout << "Display Function : EMPTY LIST" << endl;
+    } else {
+      Node *temp = tail;
+      cout << "LIST : ";
+      while (temp != nullptr) {
+        cout << temp->data << " --> ";
+        temp = temp->prev;
       }
       cout << "Null" << endl;
     }
@@ -68,6 +84,7 @@ public:
         tail = nullptr;
       } else {
         Node *temp = head;
+        head->prev = nullptr;
         head = head->next;
         delete temp;
       }
@@ -84,48 +101,11 @@ public:
         head = nullptr;
         tail = nullptr;
       } else {
-        Node *temp = head;
-        while (temp->next->next != nullptr) {
-          temp = temp->next;
-        }
-        delete temp->next;
-        tail = temp;
-        temp->next = nullptr;
+        tail = tail->prev;
+        delete tail->next;
+        tail->next = nullptr;
       }
       cout << "Node deleted at tail." << endl;
-    }
-  }
-
-  void get_next() { cout << head->next << endl; }
-
-  void deletebyValue(int x) {
-    if (head == nullptr) {
-      cout << "List is empty cannot delete form value" << endl;
-    } else {
-      if (head->next == nullptr) {
-        if (head->data == x) {
-          delete head;
-          head = nullptr;
-          tail = nullptr;
-          cout << "Deleted " << x << endl;
-        } else {
-          cout << "Element " << x << " not present in the list" << endl;
-        }
-      } else {
-        Node *temp = head;
-        Node *prev = head;
-        while (temp != nullptr) {
-          if (temp->data == x) {
-            prev->next = temp->next;
-            delete temp;
-            cout << "Deleted " << x << endl;
-            return;
-          }
-          prev = temp;
-          temp = temp->next;
-        }
-        cout << "Element Not present in list." << endl;
-      }
     }
   }
 
@@ -153,71 +133,6 @@ public:
     return count;
   }
 
-  void deleteatPos(int x) {
-    if (len() < x) {
-      cout << "Enter valid position number for deletion." << endl;
-    } else {
-      if (x == 1) {
-        deleteatHead();
-      } else {
-        if (x == len()) {
-          deleteatTail();
-        } else {
-          Node *temp = head;
-          Node *prev = head;
-          for (int i = 1; i < x; i++) {
-            prev = temp;
-            temp = temp->next;
-          }
-          prev->next = temp->next;
-          cout << "Deleted value : " << temp->data << " | Position : " << x
-               << endl;
-          delete temp;
-        }
-      }
-    }
-  }
-
-  void insertatPos(int x, int n) {
-    if (len() < n) {
-      cout << "Enter valid position." << endl;
-    } else {
-      if (len() == n) {
-        insertatTail(x);
-      } else {
-        if (n == 1) {
-          insertatHead(x);
-        } else {
-          Node *newnode = new Node(x);
-          Node *temp = head;
-          for (int i = 1; i < n - 1; i++) {
-            temp = temp->next;
-          }
-          newnode->next = temp->next;
-          temp->next = newnode;
-        }
-      }
-    }
-  }
-
-  List cp() {
-    List xerox;
-    Node *temp = head;
-    while (temp != nullptr) {
-      xerox.insertatTail(temp->data);
-      temp = temp->next;
-    }
-    return xerox;
-  }
-
-  List rev() {
-    List rev_list;
-    for (int i = len(); i >= 1; i--) {
-      rev_list.insertatTail(valueatPos(i));
-    }
-    return rev_list;
-  }
-
   int valueatPos(int x) {
     if (len() < x) {
       cout << "Enter valid position." << endl;
@@ -239,13 +154,6 @@ public:
     return 0;
   }
 
-  List mergee(List x) {
-    List sum;
-    sum = cp();
-    sum.tail->next = x.cp().head;
-    return sum;
-  }
-
   /* ~List() {
      Node *temp = head;
      while (temp != nullptr) {
@@ -263,10 +171,7 @@ int main() {
   num.insertatTail(30);
   num.insertatTail(40);
   num.insertatTail(50);
-  num.display();
-  List x = num.rev();
-  x.display();
-  List sum = num.mergee(x);
-  sum.display();
+  num.displayFromHead();
+  num.displayFromTail();
   return 0;
 }
