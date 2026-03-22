@@ -1,140 +1,47 @@
 #include <iostream>
 using namespace std;
+
 class Stack {
 private:
-  class List {
+  class StackNode {
   public:
-    class Node {
-    public:
-      int data;
-      Node *next;
-      Node(int x) {
-        data = x;
-        next = nullptr;
-      }
-    };
-    Node *head;
-    Node *tail;
-
-    List() {
-      head = nullptr;
-      tail = nullptr;
-    }
-
-    void insertatTail(int x) {
-      Node *newnode = new Node(x);
-      if (head == nullptr) {
-        head = newnode;
-        tail = newnode;
-      } else {
-        tail->next = newnode;
-        tail = newnode;
-      }
-    }
-
-    void display() {
-      if (head == nullptr) {
-        cout << "Display Function : EMPTY STACK" << endl;
-      } else {
-        Node *temp = head;
-        while (temp != nullptr) {
-          cout << temp->data << " || ";
-          temp = temp->next;
-        }
-        cout << endl;
-      }
-    }
-
-    void deleteatTail() {
-      if (head == nullptr) {
-        cout << "Stack Underflow." << endl;
-      } else {
-        if (head->next == nullptr) {
-          delete head;
-          head = nullptr;
-          tail = nullptr;
-        } else {
-          Node *temp = head;
-          while (temp->next->next != nullptr) {
-            temp = temp->next;
-          }
-          delete temp->next;
-          tail = temp;
-          temp->next = nullptr;
-        }
-        cout << "Popped." << endl;
-      }
-    }
-
-    bool search(int x) {
-      Node *temp = head;
-      while (temp != nullptr) {
-        if (temp->data == x) {
-          cout << "SEARCH : " << x << " is present in STACK." << endl;
-          return true;
-        }
-        temp = temp->next;
-      }
-      cout << "SEARCH : " << x << " is not present in Stack.";
-      return false;
+    int data;
+    StackNode *next;
+    StackNode(int x) {
+      next = nullptr;
+      data = x;
     }
   };
-
-  List stx;
+  StackNode *head;
   int lenght;
   int cap;
 
 public:
   Stack(int x) {
+    lenght = 1;
     cap = x;
-    lenght = 0;
+    head = nullptr;
   }
 
   void push(int x) {
-    if (lenght < cap) {
-      stx.insertatTail(x);
-      lenght++;
+    StackNode *newnode = new StackNode(x);
+    if (head == nullptr) {
+      head = newnode;
     } else {
-      cout << "Stack Overflow" << endl;
+      newnode->next = head;
+      head = newnode;
     }
   }
 
   void pop() {
-    if (lenght > 0 && lenght <= cap) {
-      stx.deleteatTail();
-      lenght--;
+    if (head == nullptr) {
+      cout << "Underflow" << endl;
     } else {
-      cout << "Stack Overflow" << endl;
+      StackNode *temp = head;
+      head = head->next;
+      delete head;
     }
   }
-
-  void disp() { stx.display(); }
-
-  int get_size() {
-    cout << lenght << " / " << cap << endl;
-    return lenght;
-  }
-
-  bool is_full() { return lenght == cap; }
-
-  bool is_empty() { return lenght == 0; }
 };
-int main() {
-  Stack num(5);
-  if (num.is_empty()) {
-    cout << "Amaze" << endl;
-  }
-  num.push(30);
-  num.push(40);
-  num.disp();
-  num.get_size();
-  num.pop();
-  num.push(6);
-  num.push(10);
-  num.push(122);
-  num.push(200);
-  num.push(29);
-  num.get_size();
-  num.disp();
-  return 0;
-}
+
+int main() { return 0; }
