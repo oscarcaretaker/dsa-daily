@@ -18,30 +18,93 @@ private:
 
 public:
   Stack(int x) {
-    lenght = 1;
+    lenght = 0;
     cap = x;
     head = nullptr;
   }
 
+  // inserting the element in top.
   void push(int x) {
-    StackNode *newnode = new StackNode(x);
-    if (head == nullptr) {
-      head = newnode;
+    if (lenght < cap) {
+      StackNode *newnode = new StackNode(x);
+      if (head == nullptr) {
+        head = newnode;
+        lenght++;
+      } else {
+        newnode->next = head;
+        head = newnode;
+        lenght++;
+      }
     } else {
-      newnode->next = head;
-      head = newnode;
+      cout << "Overflow" << endl;
     }
   }
 
+  // poping the top element
   void pop() {
     if (head == nullptr) {
       cout << "Underflow" << endl;
     } else {
       StackNode *temp = head;
       head = head->next;
-      delete head;
+      delete temp;
+      lenght--;
+    }
+  }
+
+  // returns the value of top element.
+  int peek() {
+    if (head == nullptr) {
+      cout << "Empty stack" << endl;
+      return 0;
+    } else {
+      cout << "Peek -> ";
+      return head->data;
+    }
+  }
+
+  // display like a stack;
+  void disp() {
+    if (head == nullptr) {
+      cout << "Empty Stack" << endl;
+    } else {
+      StackNode *temp = head;
+      cout << "----" << endl;
+      while (temp != nullptr) {
+        cout << " " << temp->data << " " << endl << "----" << endl;
+        temp = temp->next;
+      }
+    }
+  }
+
+  // check its empty or NOt
+  bool isEmpty() { return lenght == 0; }
+
+  // check its full or not
+  bool isFull() { return lenght == cap; }
+
+  // return is size
+  int size() { return lenght; }
+
+  // destructor
+  ~Stack() {
+    while (head != nullptr) {
+      StackNode *temp = head;
+      head = head->next;
+      delete temp;
     }
   }
 };
 
-int main() { return 0; }
+int main() {
+  Stack num(5);
+  num.push(10);
+  num.push(20);
+  cout << num.peek() << endl;
+  num.push(40);
+  num.pop();
+  num.pop();
+  num.disp();
+  cout << num.size();
+  return 0;
+}
