@@ -17,3 +17,7 @@ I am consistently solving problems and **pushing my progress to this repository 
 ---
 ## Structure
 - Array
+- Linked List
+- Stack
+- Queue
+- Heaps
