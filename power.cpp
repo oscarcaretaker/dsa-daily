@@ -2,15 +2,26 @@
 using namespace std;
 
 int main() {
-  int n = 10;
-  double x = 2.0;
-  // if(n == 0){return 1.0;}
-  bool flag = false;
+  int n = -2147483648;
+  double x = 2.000;
+  double y = x;
 
-  while (n != 1) {
-    x = x * x;
-    n--;
+  if (n == 0) {
+    cout << 1;
+    return 0;
   }
-  cout << x;
+  if (n < 0) {
+    while (n != -1) {
+      x = x * y;
+      n++;
+    }
+    cout << 1 / x;
+  } else {
+    while (n != 1) {
+      x = x * y;
+      n--;
+    }
+    cout << x;
+  }
   return 0;
 }
