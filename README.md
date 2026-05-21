@@ -20,3 +20,4 @@ I am consistently solving problems and **pushing my progress to this repository 
 - Stack
 - Queue
 - Heaps
+- Tree
